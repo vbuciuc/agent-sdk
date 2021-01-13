@@ -6,6 +6,7 @@ package v1alpha1
 
 import (
 	"encoding/json"
+	"fmt"
 
 	apiv1 "github.com/Axway/agent-sdk/pkg/apic/apiserver/models/api/v1"
 )
@@ -48,16 +49,24 @@ func (res *APIService) FromInstance(ri *apiv1.ResourceInstance) error {
 		return nil
 	}
 
+	fmt.Println("APIService FromInstance: incoming Resource Instance before JSON marshal: ", ri)
+
 	m, err := json.Marshal(ri.Spec)
 	if err != nil {
+		fmt.Errorf("APIService FromInstance: Error from JSON marshal ", err)
 		return err
 	}
+
+	fmt.Println("APIService FromInstance: Resource Instance after JSON marshal & before JSON unmarshal: ", m)
 
 	spec := &ApiServiceSpec{}
 	err = json.Unmarshal(m, spec)
 	if err != nil {
+		fmt.Errorf("APIService FromInstance: Error from JSON unmarshal ", err)
 		return err
 	}
+
+	fmt.Println("APIService FromInstance: Resource Instance after JSON unmarshal: ", spec)
 
 	*res = APIService{ResourceMeta: ri.ResourceMeta, Spec: *spec}
 
@@ -66,16 +75,23 @@ func (res *APIService) FromInstance(ri *apiv1.ResourceInstance) error {
 
 // AsInstance converts a APIService to a ResourceInstance
 func (res *APIService) AsInstance() (*apiv1.ResourceInstance, error) {
+	fmt.Println("APIService AsInstance: incoming Resource Instance before JSON marshal: ", res)
 	m, err := json.Marshal(res.Spec)
 	if err != nil {
+		fmt.Errorf("APIService AsInstance: Error from JSON marshal ", err)
 		return nil, err
 	}
+
+	fmt.Println("APIService AsInstance: Resource Instance after JSON marshal & before JSON unmarshal: ", m)
 
 	spec := map[string]interface{}{}
 	err = json.Unmarshal(m, &spec)
 	if err != nil {
+		fmt.Errorf("APIService AsInstance: Error from JSON unmarshal ", err)
 		return nil, err
 	}
+
+	fmt.Println("APIService AsInstance: Resource Instance after JSON unmarshal: ", spec)
 
 	meta := res.ResourceMeta
 	meta.GroupVersionKind = APIServiceGVK()

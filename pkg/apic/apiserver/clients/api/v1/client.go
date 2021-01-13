@@ -532,6 +532,7 @@ func (c *Client) UpdateCtx(ctx context.Context, ri *apiv1.ResourceInstance, opts
 		}
 		newRi, err := i.AsInstance()
 		if err != nil {
+			fmt.Errorf("Error while converting to an instance ", err)
 			return nil, err
 		}
 
