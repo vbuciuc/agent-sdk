@@ -13,6 +13,8 @@ import (
 )
 
 type Set struct {
+	DiscoveryAgentManagementV1alpha1                 *management_v1alpha1.UnscopedDiscoveryAgentClient
+	TraceabilityAgentManagementV1alpha1              *management_v1alpha1.UnscopedTraceabilityAgentClient
 	EnvironmentManagementV1alpha1                    *management_v1alpha1.EnvironmentClient
 	APIServiceManagementV1alpha1                     *management_v1alpha1.UnscopedAPIServiceClient
 	APIServiceRevisionManagementV1alpha1             *management_v1alpha1.UnscopedAPIServiceRevisionClient
@@ -30,12 +32,12 @@ type Set struct {
 	MeshWorkloadManagementV1alpha1                   *management_v1alpha1.UnscopedMeshWorkloadClient
 	MeshServiceManagementV1alpha1                    *management_v1alpha1.UnscopedMeshServiceClient
 	MeshDiscoveryManagementV1alpha1                  *management_v1alpha1.UnscopedMeshDiscoveryClient
-	EdgeDataplaneManagementV1alpha1                  *management_v1alpha1.UnscopedEdgeDataplaneClient
-	EdgeDiscoveryAgentManagementV1alpha1             *management_v1alpha1.UnscopedEdgeDiscoveryAgentClient
-	EdgeTraceabilityAgentManagementV1alpha1          *management_v1alpha1.UnscopedEdgeTraceabilityAgentClient
 	AWSDataplaneManagementV1alpha1                   *management_v1alpha1.UnscopedAWSDataplaneClient
 	AWSDiscoveryAgentManagementV1alpha1              *management_v1alpha1.UnscopedAWSDiscoveryAgentClient
 	AWSTraceabilityAgentManagementV1alpha1           *management_v1alpha1.UnscopedAWSTraceabilityAgentClient
+	EdgeDataplaneManagementV1alpha1                  *management_v1alpha1.UnscopedEdgeDataplaneClient
+	EdgeDiscoveryAgentManagementV1alpha1             *management_v1alpha1.UnscopedEdgeDiscoveryAgentClient
+	EdgeTraceabilityAgentManagementV1alpha1          *management_v1alpha1.UnscopedEdgeTraceabilityAgentClient
 	WebhookManagementV1alpha1                        *management_v1alpha1.UnscopedWebhookClient
 	SecretManagementV1alpha1                         *management_v1alpha1.UnscopedSecretClient
 	ResourceGroupDefinitionsV1alpha1                 *definitions_v1alpha1.ResourceGroupClient
@@ -49,6 +51,14 @@ func New(b cAPIV1.Base) *Set {
 
 	var err error
 
+	s.DiscoveryAgentManagementV1alpha1, err = management_v1alpha1.NewDiscoveryAgentClient(b)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.DiscoveryAgent: %s", err))
+	}
+	s.TraceabilityAgentManagementV1alpha1, err = management_v1alpha1.NewTraceabilityAgentClient(b)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.TraceabilityAgent: %s", err))
+	}
 	s.EnvironmentManagementV1alpha1, err = management_v1alpha1.NewEnvironmentClient(b)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.Environment: %s", err))
@@ -117,18 +127,6 @@ func New(b cAPIV1.Base) *Set {
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.MeshDiscovery: %s", err))
 	}
-	s.EdgeDataplaneManagementV1alpha1, err = management_v1alpha1.NewEdgeDataplaneClient(b)
-	if err != nil {
-		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeDataplane: %s", err))
-	}
-	s.EdgeDiscoveryAgentManagementV1alpha1, err = management_v1alpha1.NewEdgeDiscoveryAgentClient(b)
-	if err != nil {
-		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeDiscoveryAgent: %s", err))
-	}
-	s.EdgeTraceabilityAgentManagementV1alpha1, err = management_v1alpha1.NewEdgeTraceabilityAgentClient(b)
-	if err != nil {
-		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeTraceabilityAgent: %s", err))
-	}
 	s.AWSDataplaneManagementV1alpha1, err = management_v1alpha1.NewAWSDataplaneClient(b)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.AWSDataplane: %s", err))
@@ -140,6 +138,18 @@ func New(b cAPIV1.Base) *Set {
 	s.AWSTraceabilityAgentManagementV1alpha1, err = management_v1alpha1.NewAWSTraceabilityAgentClient(b)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.AWSTraceabilityAgent: %s", err))
+	}
+	s.EdgeDataplaneManagementV1alpha1, err = management_v1alpha1.NewEdgeDataplaneClient(b)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeDataplane: %s", err))
+	}
+	s.EdgeDiscoveryAgentManagementV1alpha1, err = management_v1alpha1.NewEdgeDiscoveryAgentClient(b)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeDiscoveryAgent: %s", err))
+	}
+	s.EdgeTraceabilityAgentManagementV1alpha1, err = management_v1alpha1.NewEdgeTraceabilityAgentClient(b)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create client for github.com/Axway/agent-sdk/pkg/apic/apiserver/clients/management/v1alpha1.EdgeTraceabilityAgent: %s", err))
 	}
 	s.WebhookManagementV1alpha1, err = management_v1alpha1.NewWebhookClient(b)
 	if err != nil {
