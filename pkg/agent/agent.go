@@ -15,7 +15,8 @@ import (
 	apiV1 "github.com/Axway/agent-sdk/pkg/apic/apiserver/models/api/v1"
 	"github.com/Axway/agent-sdk/pkg/apic/apiserver/models/management/v1alpha1"
 	"github.com/Axway/agent-sdk/pkg/apic/auth"
-	"github.com/Axway/agent-sdk/pkg/cache"
+	"github.com/Axway/agent-sdk/pkg/cache"104
+
 	"github.com/Axway/agent-sdk/pkg/config"
 	"github.com/Axway/agent-sdk/pkg/util"
 	"github.com/Axway/agent-sdk/pkg/util/errors"
@@ -549,9 +550,8 @@ func mergeResourceWithConfig() {
 	case v1alpha1.AWSTraceabilityAgentResource:
 		mergeAWSTraceabilityAgentWithConfig(agent.cfg)
 	default:
-		panic("Unsupported agent type")
+		log.Warn("Agent type does not have a dataplane resource type associated with it")
 	}
-	// panic("Unsupported agent type")
 }
 
 func applyResConfigToCentralConfig(cfg *config.CentralConfiguration, resCfgAdditionalTags, resCfgTeamName, resCfgLogLevel string) {
