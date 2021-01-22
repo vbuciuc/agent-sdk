@@ -15,7 +15,7 @@ import (
 	apiV1 "github.com/Axway/agent-sdk/pkg/apic/apiserver/models/api/v1"
 	"github.com/Axway/agent-sdk/pkg/apic/apiserver/models/management/v1alpha1"
 	"github.com/Axway/agent-sdk/pkg/apic/auth"
-	"github.com/Axway/agent-sdk/pkg/cache"104
+	"github.com/Axway/agent-sdk/pkg/cache"
 
 	"github.com/Axway/agent-sdk/pkg/config"
 	"github.com/Axway/agent-sdk/pkg/util"
